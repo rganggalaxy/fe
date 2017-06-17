@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script type="text/javascript" src="js/echarts.js" ></script>
+		<script type="text/javascript" src="js/macarons.js" ></script>
+		<script type="text/javascript" src="js/shine.js" ></script>
+		<script type="text/javascript" src="js/roma.js" ></script>
+		<script type="text/javascript" src="js/vintage.js" ></script>
+		<script type="text/javascript" src="js/infographic.js" ></script> 
+	</head>
+	<body>
+		<div id="main" style="width: 800px;height:300px;"></div>
+		<script type="text/javascript">
+		function sortacs(x,y){return x.value-y.value}
+		function sortdesc(x,y){return y.value-x.value}
+        //var myChart = echarts.init(document.getElementById('main'),'macarons');
+        var myChart = echarts.init(document.getElementById('main'),'infographic');
+        var option = {
+            title: {
+                text: 'IOPS of SN(75153) HG(pdccsmmmdb01)',
+                subtext: 'From 2017-01-01 To 2017-01-25',
+            	left: 'center',
+            },
+            tooltip: {
+            	trigger: 'axis',
+            	axisPointer: {
+                	type: 'cross',
+                	animation: false,
+                	label: {
+                    	backgroundColor: '#ccc',
+                    	borderColor: '#aaa',
+                    	borderWidth: 1,
+                    	shadowBlur: 0,
+                    	shadowOffsetX: 0,
+                    	shadowOffsetY: 0,
+                    	textStyle: {
+                        	color: '#222'
+                    	}
+                	}
+            	},
+            	//backgroundColor: 'rgba(245, 245, 245, 0.8)',
+            	//textStyle: {
+                //	color: '#000'
+            	//},
+            	//borderWidth: 1,
+            	//borderColor: '#ccc',
+            	//padding: 10,
+            	position: function (pos, params, el, elRect, size) {
+                var obj = {top: 10};
+                obj[['left', 'right'][+(pos[0] < size.viewSize[0] / 2)]] = 30;
+                return obj;
+            	},
+            	extraCssText: 'width: 135px',
+            	formatter: function (params) {
+            		var DateTitle = params[0].name;
+            		var paramsLength = params.length;
+            		var paramsACS = params.sort(sortdesc);
+            		var valueList = [];
+            		var valueText = '';
+            		if( paramsLength>=7 ){
+            			valueList.push("<span style='display:inline-block;width:10px;height:10px;border-radius:50%;background-color:" + params[0].color + ";margin-right:5px;'></span><span></span> "+params[0].seriesName+" : "+params[0].value + "<br />");
+            			valueList.push("<span style='display:inline-block;width:10px;height:10px;border-radius:50%;background-color:" + params[1].color + ";margin-right:5px;'></span><span></span> "+params[1].seriesName+" : "+params[1].value + "<br />");
+            			valueList.push("<span style='display:inline-block;width:10px;height:10px;border-radius:50%;background-color:" + params[2].color + ";margin-right:5px;'></span><span></span> "+params[2].seriesName+" : "+params[2].value + "<br />");
+            			valueList.push("......" + "<br />");
+            			valueList.push("<span style='display:inline-block;width:10px;height:10px;border-radius:50%;background-color:" + params[paramsLength-3].color + ";margin-right:5px;'></span><span></span> "+params[paramsLength-3].seriesName+" : "+params[paramsLength-3].value + "<br />");
+            			valueList.push("<span style='display:inline-block;width:10px;height:10px;border-radius:50%;background-color:" + params[paramsLength-2].color + ";margin-right:5px;'></span><span></span> "+params[paramsLength-2].seriesName+" : "+params[paramsLength-2].value + "<br />");
+            			valueList.push("<span style='display:inline-block;width:10px;height:10px;border-radius:50%;background-color:" + params[paramsLength-1].color + ";margin-right:5px;'></span><span></span> "+params[paramsLength-1].seriesName+" : "+params[paramsLength-1].value + "<br />");
+            			valueText = valueList.join('');
+            		}else{
+            			for (var i=0;i<params.length;i++)
+						{
+							valueList.push("<span style='display:inline-block;width:10px;height:10px;border-radius:50%;background-color:"+params[i].color+";margin-right:5px;'></span><span></span> "+params[i].seriesName+" : "+params[i].value + "<br />");
+						}
+            			valueText = valueList.join('');
+            		}
+                	return DateTitle+"<br />"+valueText;
+            	}
+            },
+            toolbox: {
+        		show: true,
+        		feature: {
+            		dataZoom: {
+                		yAxisIndex: 'none'
+            		},
+            		dataView: {readOnly: false},
+            		restore: {},
+            		saveAsImage: {}
+        		}
+    		},
+            legend: {
+            	show: false,
+                //data:['00:00:00','00:00:01','00:00:02','00:00:03','00:00:04','00:00:05','00:00:06','00:00:07']
+            },
+            
+            xAxis: {
+                data: [
+                	"2016-01-01","2016-01-02","2016-01-03","2016-01-04","2016-01-05","2016-01-06","2016-01-07","2016-01-08","2016-01-09","2016-01-10","2016-01-11","2016-01-12",
+                	"2016-01-13","2016-01-14","2016-01-15","2016-01-16","2016-01-17","2016-01-18","2016-01-19","2016-01-20","2016-01-21","2016-01-22","2016-01-23","2016-01-24",
+                ],
+                type: 'category',
+        		boundaryGap: false,
+            },
+            yAxis: {},
+            series: [
+            	{
+                	name: '00:00:00',
+                	type: 'line',showSymbol: false,smooth: true,
+                	data: [5, 20, 36, 10, 10, 20, 6, 14, 3, 22, 11, 20, 5, 20, 36, 10, 10, 20, 6, 14, 3, 22, 11, 20]
+            	},
+            	{
+                	name: '00:00:01',
+                	type: 'line',showSymbol: false,smooth: true,
+                	data: [6, 14, 3, 22, 11, 20, 5, 20, 36, 10, 10, 20, 6, 14, 3, 22, 11, 20, 5, 20, 36, 10, 10, 20]
+            	},
+            	{
+                	name: '00:00:02',
+                	type: 'line',showSymbol: false,smooth: true,
+                	data: [1, 2, 3, 4, 5, 6, 7, 9, 11, 8, 10, 9, 16, 11, 13, 12, 11, 22, 25, 23, 11, 12, 12, 10]
+            	},
+            	{
+                	name: '00:00:03',
+                	type: 'line',showSymbol: false,smooth: true,
+                	data: [2, 7, 3, 4, 3, 4, 7, 9, 11, 8, 10, 7,      31, 43, 71, 13, 14, 25, 22, 29, 19, 13, 9, 6]
+            	},
+            	{
+                	name: '00:00:04',
+                	type: 'line',showSymbol: false,smooth: true,
+                	data: [32, 43, 72, 14, 15, 25, 22, 29, 19, 13, 9, 6, 10, 10, 10, 10, 10, 10, 21, 22, 21, 32, 22, 30]
+            	},
+            	{
+                	name: '00:00:05',
+                	type: 'line',showSymbol: false,smooth: true,
+                	data: [30, 42, 70, 13, 12, 22, 21, 27, 17, 13, 9, 6, 2, 7, 3, 4, 3, 4, 7, 9, 11, 8, 10, 7]
+            	},
+            	{
+                	name: '00:00:06',
+                	type: 'line',showSymbol: false,smooth: true,
+                	data: [4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4]
+            	},
+            	{
+                	name: '00:00:07',
+                	type: 'line',showSymbol: false,smooth: true,
+                	data: [13, 12, 51, 43, 66, 25, 22, 66, 0, 0, 2, 6, 1, 7, 13, 14, 13, 14, 17, 19, 11, 18, 10, 17]
+            	},
+            ]
+        };
+        myChart.setOption(option);
+    	</script>
+	</body>
+</html>
