@@ -1,49 +1,22 @@
-git/github初级运用自如
+#git/github初级运用自如
 
-      之前初学过一点git版本控制工具，利用github做仓库，照着github上的文档练习的了一下。不过那只篇只是照虎画猫（我的水平只能照着老虎画个猫模样，嘻嘻！）。
-
-最近在学hibernate，公司与家之间都要调用我练习的小项目，交给git/github来管理，我只想说真的爽歪歪了。
-
-本文在我之前的那篇《git/github学习笔记》的基础上，属于那个的升级加强版，欢迎对照阅读：http://www.cnblogs.com/fnng/archive/2011/08/25/2153807.html
-
-如果本文有不太明白的地方请参考上面的文章。
-
- 
+对照阅读http://www.cnblogs.com/fnng/archive/2011/08/25/2153807.html
 
 Github: git项目托管网站，请先免费申请一个github帐号：www.github.com
-
 Git:分布式版本控制工具，http://d.download.csdn.net/down/3169511/z_y_liu89
 
- 
-
-Github的申请与git的安装我这里就不说了。这个不难。
-
- 
-
-----//git/github环境配置
- 
-
-一 .  github上创建立一个项目
-
+#git/github环境配置
+##一、github上创建立一个项目
 用户登录后系统，在github首页，点击页面右下角“New Repository”
-
 填写项目信息：
-
 project name: hibernate-demo  
-
 description : my first project
-
 点击“Create Repository” ； 现在完成了一个项目在github上的创建。
-
 说明：我们创建的是一个github仓库，一个仓库里只能存放（或叫对应）一个项目。
-
 当你创建完成一个仓库的之后，github已经给你一个提示：当你看完了我的文章再来看这个提示就非常清楚了。
 
- 
-
-复制代码
 Global setup:
- Set up git
+  set up git
   git config --global user.name "Your Name"
   git config --global user.email defnngj@gmail.com
       
@@ -66,53 +39,34 @@ Importing a Subversion Repo?
   Click here 
 When you're done:
   Continue
-复制代码
- 
 
- 
-
-二  .  创建密钥
-
-我们如何让本地git项目与远程的github建立联系呢？之里就用的密钥。通俗点叫口令吧！（天王盖地老，宝塔镇河妖。。）
-
- 
+##二、创建密钥
+    我们如何让本地git项目与远程的github建立联系呢？之里就用的密钥。通俗点叫口令吧！（天王盖地老，宝塔镇河妖。。）
 
 $ cd ~/. ssh 检查本机的ssh密钥
 如果提示：No such file or directory 说明你是第一次使用git。
-
 如果不是第一次使用，请执行下面的操作,清理原有ssh密钥。
-
  $ mkdir key_backup
  $ cp id_rsa* key_backup
  $ rm id_rsa*
 生成新的密钥：
-
-Ssh-keygen –t rsa –C “defnngj@gmai.com” 
- 
+ssh-keygen –t rsa –C “defnngj@gmai.com” 
 
 注意: 此处的邮箱地址，你可以输入自己的邮箱地址。在回车中会提示你输入一个密码，这个密码会在你提交项目时使用，如果为空的话提交项目时则不用输入。这个设置是防止别人往你的项目里提交内容。
 
- 
-
 打开本地C:\Documents and Settings\Administrator\.ssh\id_rsa.pub文件。此文件里面内容为刚才生成人密钥。
-
 登陆github系统。点击右上角的 Account Settings--->SSH Public keys ---> add another public keys
 
 把你本地生成的密钥复制到里面（key文本框中）， 点击 add key 就ok了
 
 在git中运行下面命令：
-
- 
-
 $ ssh –T git@github.com
 如果提示：Hi defnngj You've successfully authenticated, but GitHub does not provide shell access. 说明你连接成功了。
 
  
 
-三 . 设置用户信息
-
+##三、设置用户信息
 这一步不是很重要，貌似不设置也行，但github官方步骤中有，所以这里也提一下。
-
 在git中设置用户名，邮箱
 
  
